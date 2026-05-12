@@ -1,7 +1,12 @@
 import subprocess
 import os
 import shutil
-import google.generativeai as genai
+try:
+    import google.genai as genai
+    _GENAI_NEW = True
+except ImportError:
+    import google.generativeai as genai
+    _GENAI_NEW = False
 
 class ToolManager:
     def __init__(self):
@@ -49,25 +54,18 @@ def analyze_with_llm(data_context):
         return f"LLM Analysis skipped (Error: {str(e)})"
 
 def analyze_findings(recon_data, http_results):
+    """
+    Analyzes reconnaissance and HTTP data to identify potential vulnerabilities.
+    Runs LLM deep analysis and rule-based checks together.
+    """
     print("[AI Agent] Initiating autonomous analysis phase...")
     tm = ToolManager()
     vulnerabilities = []
 
-    if recon_data.get("open_ports"):
+    # Run nmap service detection on discovered open ports
+    if recon_data.get("open_ports") and recon_data.get("ip_address"):
         ports = ",".join(map(str, recon_data["open_ports"]))
         tm.run_tool("nmap", ["-sV", "-p", ports, recon_data["ip_address"]])
-
-    if http_results.get("endpoints"):
-        print("[AI Agent] Launching LLM Deep Logic Analysis...")
-        llm_report = analyze_with_llm(str(http_results))
-        vulnerabilities.append({"type": "LLM Insight", "severity": "Variable", "location": "Logic Analysis", "details": llm_report})
-
-    return vulnerabilitiesdef analyze_findings(recon_data, http_results):
-    """
-    Analyzes reconnaissance and HTTP data to identify potential vulnerabilities.
-    """
-    print("[AI Agent] Analyzing data for potential bugs...")
-    vulnerabilities = []
 
     # Check for sensitive files found in HTTP discovery
     sensitive_patterns = [".env", "config", "backup", "admin"]
@@ -76,7 +74,8 @@ def analyze_findings(recon_data, http_results):
             vulnerabilities.append({
                 "type": "Potential Sensitive File Exposure",
                 "severity": "High",
-                "location": url
+                "location": url,
+                "details": f"Sensitive path accessible: {url}",
             })
 
     # Analyze open ports for risky services
@@ -86,8 +85,20 @@ def analyze_findings(recon_data, http_results):
             vulnerabilities.append({
                 "type": "Exposed Management Service",
                 "severity": "Medium",
-                "location": f"Port {port} ({risky_ports[port]})"
+                "location": f"Port {port} ({risky_ports[port]})",
+                "details": f"Service {risky_ports[port]} exposed on port {port}",
             })
+
+    # LLM deep logic analysis
+    if http_results.get("endpoints"):
+        print("[AI Agent] Launching LLM Deep Logic Analysis...")
+        llm_report = analyze_with_llm(str(http_results))
+        vulnerabilities.append({
+            "type": "LLM Insight",
+            "severity": "Variable",
+            "location": "Logic Analysis",
+            "details": llm_report,
+        })
 
     print(f"[AI Agent] Analysis complete. Identified {len(vulnerabilities)} issues.")
     return vulnerabilities
