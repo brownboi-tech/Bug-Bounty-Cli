@@ -1,9 +1,12 @@
 import json
+import os
 
 def enrich_findings(vulnerabilities):
     print("[Enrichment] Mapping findings to CWE database...")
+    # Load cwe_map.json from same directory as this file
+    cwe_map_path = os.path.join(os.path.dirname(__file__), 'cwe_map.json')
     try:
-        with open('/content/cwe_map.json', 'r') as f:
+        with open(cwe_map_path, 'r') as f:
             cwe_data = json.load(f)
     except FileNotFoundError:
         cwe_data = {}
