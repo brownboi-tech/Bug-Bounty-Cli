@@ -1,0 +1,16 @@
+"""
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+dist/
+build/
+*.egg-info/
+.coverage
+htmlcov/
+results/
+monitor_logs/
+reports/
+assets/
+"""
