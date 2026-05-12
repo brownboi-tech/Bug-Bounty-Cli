@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import List, Optional, Dict
 
 @dataclass
-推Vulnerability:
+class Vulnerability:
     type: str
     severity: str
     location: str
