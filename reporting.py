@@ -1,5 +1,3 @@
-%%writefile /content/reporting.py
-
 def generate_report(results_path):
     import json
     with open(results_path, 'r') as f:
