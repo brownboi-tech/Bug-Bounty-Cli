@@ -12,3 +12,8 @@ results/
 monitor_logs/
 reports/
 assets/
+screenshots/
+*.png
+.env
+.env.*
+!.env.example
