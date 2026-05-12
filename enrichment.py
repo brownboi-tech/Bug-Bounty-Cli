@@ -1,5 +1,3 @@
-%%writefile /content/enrichment.py
-
 import json
 
 def enrich_findings(vulnerabilities):
