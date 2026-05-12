@@ -1,22 +1,15 @@
- """
-[build-system]
-requires = [\"setuptools\", \"wheel\"]
-build-backend = \"setuptools.build_meta\"
+import json
 
-[project]
-name = \"bugbounty-cli\"
-version = \"0.1.0\"
-description = \"Autonomous Bug Bounty CLI Tool\"
-readme = \"README.md\"
-requires-python = \">=3.8\"
-dependencies = [
-    \"openai\",
-    \"requests\",
-    \"google-generativeai\",
-]
-"""
+cwe_map = {
+    "Potential Sensitive File Exposure": {"id": "CWE-552", "desc": "Files or Directories Accessible to External Parties"},
+    "Exposed Management Service": {"id": "CWE-284", "desc": "Improper Access Control"},
+    "Directory Discovery": {"id": "CWE-548", "desc": "Exposure of Information Through Directory Listing"},
+    "Nuclei Detection": {"id": "CWE-1352", "desc": "Insufficient Control of Proxied Network Requests"}
+}
 
-with open('/content/pyproject.toml', 'w') as f:
-    f.write(toml_content)
+# Ensure the file exists locally
+with open('/content/cwe_map.json', 'w') as f:
+    json.dump(cwe_map, f, indent=4)
 
-print(toml_content)
+# Display for copying
+print(json.dumps(cwe_map, indent=4))
