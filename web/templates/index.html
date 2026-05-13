@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Bug Bounty Scanner</title>
+  <script defer src="/static/app.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 1rem; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  </style>
+</head>
+<body>
+  <h1>Bug Bounty Scanner</h1>
+  <div class="card">
+    <h3>Submit target</h3>
+    <input id="target" placeholder="example.com" />
+    <label><input id="fast" type="checkbox" /> Fast mode</label>
+    <button id="submit">Start Scan</button>
+    <p id="job-info"></p>
+  </div>
+
+  <div class="card">
+    <h3>Scan status</h3>
+    <input id="scan-id" type="number" placeholder="scan id" />
+    <button id="check">Check Scan</button>
+    <pre id="scan-status"></pre>
+  </div>
+
+  <div class="card">
+    <h3>Findings</h3>
+    <label>Severity filter:
+      <select id="severity">
+        <option value="all">all</option>
+        <option value="critical">critical</option>
+        <option value="high">high</option>
+        <option value="medium">medium</option>
+        <option value="low">low</option>
+      </select>
+    </label>
+    <button id="load-report">Load Report</button>
+    <ul id="findings"></ul>
+  </div>
+</body>
+</html>
