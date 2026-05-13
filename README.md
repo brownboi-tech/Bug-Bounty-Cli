@@ -1,27 +1,30 @@
 # Bug-Bounty-Cli
-"""# Autonomous Bug Bounty CLI Tool
 
-An AI-driven, modular CLI tool for automated bug bounty hunting and security reconnaissance.
+Autonomous bug bounty CLI for reconnaissance, surface discovery, and AI-assisted triage.
 
-## Features
-- **Modular Pipeline**: Recon, HTTP Capture, AI Analysis, Enrichment, and Reporting.
-- **Autonomous Analysis**: Uses AI to identify complex logic vulnerabilities.
-- **Tool Integration**: Automatically installs and runs tools like nmap and nuclei.
-- **CWE Mapping**: Enriches findings with Industry-standard CWE IDs.
+## Highlights
+- Modular scan pipeline: recon → HTTP discovery → AI analysis → CWE enrichment → report.
+- CLI commands for one-off scans and continuous monitoring.
+- OpenAI-powered vulnerability reasoning using `OPENAI_API_KEY`.
 
 ## Installation
-1. Clone the repository.
-2. Install dependencies: `pip install -r requirements.txt`.
-3. Set your OpenAI API Key: `export OPENAI_API_KEY='your-key-here'`.
-
-## Usage
-Run a fast scan on a target:
 ```bash
-python main.py scan example.com --fast
+pip install -r requirements.txt
 ```
 
-## Disclaimer
-This tool is for educational and authorized testing purposes only. Use it responsibly on targets you have explicit permission to test."""
+## Quick start
+```bash
+python main.py scan example.com --fast --output results
+```
 
-with open('/content/README.md', 'w') as f:
-    f.write(readme_content)
+Or install as a command:
+```bash
+pip install .
+bugbounty scan example.com
+```
+
+## Environment variables
+- `OPENAI_API_KEY`: required for AI analysis stage.
+
+## Disclaimer
+Use only on assets you own or are explicitly authorized to test.
