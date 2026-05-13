@@ -14,4 +14,11 @@ dependencies = [
 ]
 
 [project.scripts]
-bugbounty = "main:main"
+hexa-ai = "hexa_ai.main:main"
+hexa-ai-server = "hexa_ai.api_server:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

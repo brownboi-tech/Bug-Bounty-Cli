@@ -1,7 +1,7 @@
 import argparse
 import sys
 import time
-from runner import run_scan
+from .runner import run_scan
 
 def main():
     parser = argparse.ArgumentParser(description="Autonomous Bug Bounty CLI")

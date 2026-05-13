@@ -1,10 +1,10 @@
 import os
 import json
-from recon import perform_recon
-from http_capture import capture_traffic
-from ai_agent import analyze_findings
-from enrichment import enrich_findings
-from reporting import generate_report
+from .recon import perform_recon
+from .http_capture import capture_traffic
+from .ai_agent import analyze_findings
+from .enrichment import enrich_findings
+from .reporting import generate_report
 
 def run_scan(target: str, fast_mode: bool, output_dir: str):
     if not os.path.exists(output_dir):
